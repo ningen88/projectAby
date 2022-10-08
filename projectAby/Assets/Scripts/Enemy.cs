@@ -34,7 +34,7 @@ public class Enemy : Entity
     
     private void Awake()
     {
-        maskPath = Application.dataPath + "/SavedDataEditor/obstaclesPosition.json";
+        maskPath = Application.dataPath + "/StreamingAssets/obstaclesPosition.json";
         obsAgent = gameObject.GetComponent<ObstacleAgent>();
         anim = gameObject.GetComponent<Animator>();
         weaponEffects = gameObject.GetComponentInChildren<ShootingEffects>();

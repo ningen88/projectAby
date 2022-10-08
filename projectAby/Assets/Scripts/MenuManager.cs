@@ -34,13 +34,14 @@ public class MenuManager : MonoBehaviour
     private void GetAllResolutions()
     {
         resolutions = Screen.resolutions;
+        
         resolutionDropDown.ClearOptions();
         List<string> resNames = new List<string>();
         int index = 0;
 
         for(int i = 0; i < resolutions.Length; i++)
         {
-            string name = resolutions[i].width + "x" + resolutions[i].height;
+            string name = resolutions[i].width + "x" + resolutions[i].height + " " + resolutions[i].refreshRate + "Hz";
             resNames.Add(name);
             if(resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
             {

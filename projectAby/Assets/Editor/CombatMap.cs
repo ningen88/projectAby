@@ -27,7 +27,7 @@ public class CombatMap : EditorWindow
 
     private void OnEnable()
     {
-        savedMaskPath = Application.dataPath + "/SavedDataEditor/obstaclesPosition.json";
+        savedMaskPath = Application.dataPath + "/StreamingAssets/obstaclesPosition.json";
         so = new SerializedObject(this);
         terrainProp = so.FindProperty("terrain");
         
