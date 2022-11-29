@@ -86,6 +86,7 @@ public class PlayerUnit : Entity
     {
         initiativePoints = originalInitiativePoints;
         StartCoroutine(DeathCheck());
+
         if (health < lastHealth)
         {
             StartCoroutine(TakeDamage());
@@ -274,14 +275,14 @@ public class PlayerUnit : Entity
             for (int j = 0; j < width; j++)
             {
                 var fullMap = gridMap.GetGrid();
-                Vector3 vecFullMap = new Vector3(fullMap[i, j].Item1, 0.0f, fullMap[i, j].Item2);
-                float distance = Vector3.Distance(unitPosition, vecFullMap);
+                Vector3 cellPos = new Vector3(fullMap[i, j].Item1, 0.0f, fullMap[i, j].Item2);
+                float distance = Vector3.Distance(unitPosition, cellPos);
 
-                if (isObstacle(vecFullMap)) continue;
+                if (isObstacle(cellPos)) continue;
                 if (distance < maxDistance)
                 {
-                    drawFunctions.DrawCell(vecFullMap);
-                    availableCells.Add(vecFullMap);
+                    drawFunctions.DrawCell(cellPos);
+                    availableCells.Add(cellPos);
                 }
             }
         }

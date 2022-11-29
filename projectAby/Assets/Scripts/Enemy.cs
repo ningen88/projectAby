@@ -284,7 +284,7 @@ public class Enemy : Entity
 
     private bool SearchForCover(out Vector3 position)
     {
-        float maxDot = -Mathf.Infinity;
+        float maxDistFromTarget = -Mathf.Infinity;
         bool needCover = false;
         position = gameObject.transform.position;
 
@@ -309,13 +309,14 @@ public class Enemy : Entity
                 Vector3 dirPosToObs = (cellPos - obsPos).normalized;
 
                 float visibilityTest = Vector3.Dot(dirPosToTarget, dirPosToObs);
+                float distFromCellToTarget = Vector3.Distance(cellPos, priorityTarget.transform.position);
 
                 // search for the position that give the most protection
-                if (visibilityTest > 0 && visibilityTest > maxDot)
+                if (visibilityTest > 0 && distFromCellToTarget > maxDistFromTarget)
                 {
                     needCover = true;
                     position = cellPos;
-                    maxDot = visibilityTest;
+                    maxDistFromTarget = distFromCellToTarget;
                 }
             }
         }
@@ -378,17 +379,17 @@ public class Enemy : Entity
             for(int j = 0; j < width; j++)
             {
                 var fullMap = gridMap.GetGrid();
-                Vector3 vecFullMap = new Vector3(fullMap[i,j].Item1, 0.0f, fullMap[i,j].Item2);
+                Vector3 cellPos = new Vector3(fullMap[i,j].Item1, 0.0f, fullMap[i,j].Item2);
                
-                if (isObstacle(vecFullMap) || isCellOccupied(vecFullMap, targetPos) || isCellBehind(targetDirection, vecFullMap) || invalidCellNearObstacle(vecFullMap)) continue;
+                if (isObstacle(cellPos) || isCellOccupied(cellPos, targetPos) || isCellBehind(targetDirection, cellPos) || invalidCellNearObstacle(cellPos)) continue;
 
-                float distance = Vector3.Distance(gameObject.transform.position, vecFullMap);
+                float distance = Vector3.Distance(gameObject.transform.position, cellPos);
                 
                 if (distance < maxDistance)
                 {
-                    int targetDistance = (int)Vector3.Distance(targetPos, vecFullMap);
+                    int targetDistance = (int)Vector3.Distance(targetPos, cellPos);
                     Cell cell = new Cell();
-                    cell.position = vecFullMap;
+                    cell.position = cellPos;
                     cell.cost = targetDistance;
                     availableCells.Add(cell);
                 }

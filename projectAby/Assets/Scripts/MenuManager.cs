@@ -34,7 +34,7 @@ public class MenuManager : MonoBehaviour
     private void GetAllResolutions()
     {
         resolutions = Screen.resolutions;
-        
+                
         resolutionDropDown.ClearOptions();
         List<string> resNames = new List<string>();
         int index = 0;

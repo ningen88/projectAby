@@ -83,7 +83,7 @@ public class GridMap : MonoBehaviour
         }
         else
         {
-            StartCoroutine(SelectUnit());
+            StartCoroutine(SelectNextUnit());
         }        
     }
 
@@ -95,13 +95,7 @@ public class GridMap : MonoBehaviour
     private void CreateTurnList()
     {
         unitList.Sort(byInitiative);   
-        unitList[0].state = Entity.EntityState.ACTIONS;
-
-        for(int i = 1; i < unitList.Count; i++)
-        {
-            unitList[1].state = Entity.EntityState.WAIT_FOR_TURN;
-        }
-        
+        unitList[0].state = Entity.EntityState.ACTIONS;  
         isUnitSelected = true;
         selUnitCount = 0;
     }
@@ -127,7 +121,7 @@ public class GridMap : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator SelectUnit()
+    IEnumerator SelectNextUnit()
     {
         if (selUnitCount == unitList.Count -1)
         {
@@ -178,7 +172,6 @@ public class GridMap : MonoBehaviour
         {
             for (int j = 0; j < WIDTH; j++)
             {
-
                 matrix[i, j].Item1 = X;
                 matrix[i, j].Item2 = Y;
                 X += incX;
